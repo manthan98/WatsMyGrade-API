@@ -30,6 +30,44 @@ export default({ config, db }) => {
         });
     });
 
+    // '/v1/user/:id' - DELETE.
+    api.delete('/:id', (req, res) => {
+        User.findById(req.params.id, (err, user) => {
+            if(err) {
+                res.status(500).send(err);
+                return;
+            }
+            if(user === null) {
+                res.status(404).send("User not found.");
+                return;
+            }
+            User.remove({
+                _id: req.params.id
+            }, (err, user) => {
+                if(err) {
+                    res.status(500).send(err);
+                    return;
+                }
+                Course.remove({
+                    user: req.params.id
+                }, (err, course) => {
+                    if(err) {
+                        res.status(500).send(err);
+                        return;
+                    }
+                    Grade.remove({
+                        course: req.params.id
+                    }, (err, grade) => {
+                        if(err) {
+                            res.send(err);
+                        }
+                        res.json({ message: "User successfully removed." });
+                    })
+                })
+            })
+        })
+    })
+
     // '/v1/user/courses/add' - CREATE course.
     api.post('/courses/add/:id', (req, res) => {
         User.findById(req.params.id, (err, user) => {
