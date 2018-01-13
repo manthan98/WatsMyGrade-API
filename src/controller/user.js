@@ -7,6 +7,8 @@ import Grade from '../model/grade';
 export default({ config, db }) => {
     let api = Router();
 
+    // USER operations.
+
     // '/v1/course/add' - CREATE user.
     api.post('/add', (req, res) => {
        let newUser = new User();
@@ -20,17 +22,7 @@ export default({ config, db }) => {
        });
     });
 
-    // '/v1/user/courses/:id' - READ courses for user.
-    api.get('/courses/:id', (req, res) => {
-        Course.find({ user: req.params.id }, (err, courses) => {
-            if(err) {
-                res.send(err);
-            }
-            res.json(courses);
-        });
-    });
-
-    // '/v1/user/:id' - DELETE.
+    // '/v1/user/:id' - DELETE an user and associated values.
     api.delete('/:id', (req, res) => {
         User.findById(req.params.id, (err, user) => {
             if(err) {
@@ -62,11 +54,34 @@ export default({ config, db }) => {
                             res.send(err);
                         }
                         res.json({ message: "User successfully removed." });
-                    })
-                })
-            })
-        })
-    })
+                    });
+                });
+            });
+        });
+    });
+
+    // COURSE operations.
+
+    // '/v1/user/courses/:id' - READ courses for user.
+    api.get('/courses/:id', (req, res) => {
+        Course.find({ user: req.params.id }, (err, courses) => {
+            if(err) {
+                res.send(err);
+            }
+            res.json(courses);
+        });
+    });
+
+    // '/v1/user/courses/:id' - DELETE a course.
+    api.delete('/courses/:id', (req, res) => {
+        Course.findByIdAndRemove(req.params.id, (err, course) => {
+            let response = {
+                message: "Course successfully removed",
+                id: course._id
+            };
+            res.status(200).send(response);
+        });
+    });
 
     // '/v1/user/courses/add' - CREATE course.
     api.post('/courses/add/:id', (req, res) => {
@@ -94,7 +109,9 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/user/grades/:id' - GET grades for course.
+    // GRADES operations.
+
+    // '/v1/user/grades/:id' - READ grades for course.
     api.get('/grades/:id', (req, res) => {
         Grade.find({ course: req.params.id }, (err, grades) => {
             if(err) {
@@ -127,6 +144,17 @@ export default({ config, db }) => {
                     res.json({ message: "Grade saved successfully." });
                 });
             });
+        });
+    });
+
+    // '/v1/user/grades/:id' - DELETE a grade.
+    api.delete('/grades/:id', (req, res) => {
+        Grade.findByIdAndRemove(req.params.id, (err, grade) => {
+            let response = {
+                message: "Grade successfully removed",
+                id: grade._id
+            };
+            res.status(200).send(response);
         });
     });
 
