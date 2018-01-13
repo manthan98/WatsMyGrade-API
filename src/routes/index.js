@@ -3,7 +3,7 @@ import config from '../config';
 import middleware from '../middleware';
 import initializeDb from '../db';
 import user from '../controller/user';
-import course from '../controller/course';
+//import course from '../controller/course';
 
 let router = express();
 

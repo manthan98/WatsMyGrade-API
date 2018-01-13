@@ -20,7 +20,17 @@ export default({ config, db }) => {
        });
     });
 
-    // '/v1/user/course/add' - CREATE course.
+    // '/v1/user/courses/:id' - READ courses for user.
+    api.get('/courses/:id', (req, res) => {
+        Course.find({ user: req.params.id }, (err, courses) => {
+            if(err) {
+                res.send(err);
+            }
+            res.json(courses);
+        });
+    });
+
+    // '/v1/user/courses/add' - CREATE course.
     api.post('/courses/add/:id', (req, res) => {
         User.findById(req.params.id, (err, user) => {
             if(err) {
@@ -43,6 +53,16 @@ export default({ config, db }) => {
                     res.json({ message: "Course saved successfully." });
                 });
             });
+        });
+    });
+
+    // '/v1/user/grades/:id' - GET grades for course.
+    api.get('/grades/:id', (req, res) => {
+        Grade.find({ course: req.params.id }, (err, grades) => {
+            if(err) {
+                res.send(err);
+            }
+            res.json(grades);
         });
     });
 
