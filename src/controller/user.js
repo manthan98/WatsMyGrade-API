@@ -9,7 +9,7 @@ export default({ config, db }) => {
 
     // USER operations.
 
-    // '/v1/course/add' - CREATE user.
+    // '/v1/user/add' - CREATE user.
     api.post('/add', (req, res) => {
        let newUser = new User();
        newUser.username = req.body.username;
@@ -20,6 +20,16 @@ export default({ config, db }) => {
            }
            res.json({ message: 'User saved successfully.' });
        });
+    });
+
+    // GET users.
+    api.get('/', (req, res) => {
+        User.find({}, (err, users) => {
+            if(err) {
+                res.send(err);
+            }
+            res.json(users);
+        });
     });
 
     // '/v1/user/:id' - DELETE an user and associated values.
@@ -83,7 +93,7 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/user/courses/add' - CREATE course.
+    // '/v1/user/courses/add/:id' - CREATE course.
     api.post('/courses/add/:id', (req, res) => {
         User.findById(req.params.id, (err, user) => {
             if(err) {
