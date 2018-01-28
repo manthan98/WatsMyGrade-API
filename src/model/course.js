@@ -19,8 +19,7 @@ let CourseSchema = new Schema({
     grades: [{ type: Schema.Types.ObjectId, ref: 'Grade' }],
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: 'User'
     }
 });
 

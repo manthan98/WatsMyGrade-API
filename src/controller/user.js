@@ -119,6 +119,23 @@ export default({ config, db }) => {
         });
     });
 
+    api.put('/courses/update/:id', (req, res) => {
+        Course.findById(req.params.id, (err, course) => {
+            if (err) {
+                res.send(err);
+            }
+            course.title = req.body.title;
+            course.credits = req.body.credits;
+            course.instructor = req.body.instructor;
+            course.save(err => {
+                if (err) {
+                    res.send(err);
+                }
+                res.json({ message: "Course info updated." });
+            });
+        });
+    });
+
     // GRADES operations.
 
     // '/v1/user/grades/:id' - READ grades for course.
