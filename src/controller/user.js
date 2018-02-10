@@ -119,6 +119,7 @@ export default({ config, db }) => {
         });
     });
 
+    // '/v1/user/courses/update/:id' - UPDATE course.
     api.put('/courses/update/:id', (req, res) => {
         Course.findById(req.params.id, (err, course) => {
             if (err) {
@@ -127,6 +128,7 @@ export default({ config, db }) => {
             course.title = req.body.title;
             course.credits = req.body.credits;
             course.instructor = req.body.instructor;
+            course.average = req.body.average;
             course.save(err => {
                 if (err) {
                     res.send(err);

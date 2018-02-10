@@ -16,6 +16,7 @@ let CourseSchema = new Schema({
         type: String,
         required: true
     },
+    average: Number,
     grades: [{ type: Schema.Types.ObjectId, ref: 'Grade' }],
     user: {
         type: Schema.Types.ObjectId,
