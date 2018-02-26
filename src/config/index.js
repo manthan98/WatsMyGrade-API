@@ -1,7 +1,5 @@
 export default {
-    // "port": 3005,
-    // "mongoUrl": "mongodb://localhost:27017/watsmygrades-api",
     "port": 3005,
-    "mongoUrl:": "mongodb://manthan:hello@ds241668.mlab.com:41668/watsmygrade",
+    "mongoUrl": "mongodb://localhost:27017/watsmygrades-api",
     "bodyLimit": "100kb"
 }
