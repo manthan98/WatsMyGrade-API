@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { Router } from 'express';
-import User from '../model/user';
 import Course from '../model/course';
 import Grade from '../model/grade';
 
@@ -28,10 +27,10 @@ export default({ config, db }) => {
                         res.send(err);
                     }
                     res.json({ message: 'Grade saved successfully.' });
-                })
-            })
-        })
-    })
+                });
+            });
+        });
+    });
 
     return api;
 }

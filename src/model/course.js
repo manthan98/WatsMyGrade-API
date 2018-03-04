@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import User from './user';
 import Grade from './grade';
 
 let Schema = mongoose.Schema;
