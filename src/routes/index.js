@@ -3,6 +3,8 @@ import config from '../config';
 import middleware from '../middleware';
 import initializeDb from '../db';
 import user from '../controller/user';
+import course from '../controller/course';
+import grade from '../controller/grade';
 //import course from '../controller/course';
 
 let router = express();
@@ -13,7 +15,9 @@ initializeDb(db => {
     router.use(middleware({ config, db }));
 
     // API routes v1 (/v1).
-    router.use('/user', user({ config, db }));
+    // router.use('/user', user({ config, db }));
+    router.use('/course', course({ config, db }));
+    router.use('/grade', grade({ config, db }));
 });
 
 export default router;
