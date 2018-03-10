@@ -6,7 +6,7 @@ import Task from '../model/task';
 export default({ config, db }) => {
     let api = Router();
 
-    // '/v1/task/add/:id'
+    // '/v1/task/add/:id' - CREATE task.
     api.post('/add/:id', (req, res) => {
         Course.findById(req.params.id, (err, course) => {
             if (err) {
@@ -28,6 +28,16 @@ export default({ config, db }) => {
                     res.json({ message: 'Task saved successfully.' });
                 });
             });
+        });
+    });
+
+    // '/v1/task/:id' - GET tasks.
+    api.get('/:id', (req, res) => {
+        Task.find({ course: req.params.id }, (err, tasks) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(tasks);
         });
     });
 
