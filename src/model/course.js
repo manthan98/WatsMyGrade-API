@@ -16,7 +16,8 @@ let CourseSchema = new Schema({
         required: true
     },
     average: Number,
-    grades: [{ type: Schema.Types.ObjectId, ref: 'Grade' }]
+    grades: [{ type: Schema.Types.ObjectId, ref: 'Grade' }],
+    tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 });
 
 module.exports = mongoose.model('Course', CourseSchema);
