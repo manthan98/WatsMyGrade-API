@@ -41,5 +41,33 @@ export default({ config, db }) => {
         });
     });
 
+    // '/v1/task/update/:id' - UPDATE a task.
+    api.put('/update/:id', (req, res) => {
+        Task.findById(req.params.id, (err, task) => {
+            if (err) {
+                res.send(err);
+            }
+            task.name = req.body.name;
+            task.priority = req.body.priority;
+            task.save(err => {
+                if (err) {
+                    res.send(err);
+                }
+                res.json({ message: 'Task information updated.' });
+            });
+        });
+    });
+
+    // '/v1/task/delete/:id'
+    api.delete('/delete/:id', (req, res) => {
+        Task.findByIdAndRemove(req.params.id, (err, task) => {
+            let response = {
+                message: "Task successfully removed.",
+                id: task._id
+            };
+            res.status(200).send(response);
+        });
+    });
+
     return api;
 }
