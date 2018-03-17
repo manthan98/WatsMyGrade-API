@@ -11,6 +11,10 @@ let TaskSchema = new Schema({
         type: String,
         required: true
     },
+    date: {
+        type: String,
+        required: true
+    },
     course: {
         type: Schema.Types.ObjectId,
         ref: 'Course',

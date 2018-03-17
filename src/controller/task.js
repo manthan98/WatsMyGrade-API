@@ -15,6 +15,7 @@ export default({ config, db }) => {
             let newTask = new Task();
             newTask.name = req.body.name;
             newTask.priority = req.body.priority;
+            newTask.date = req.body.date;
             newTask.course = course._id;
             newTask.save((err, task) => {
                 if (err) {
@@ -49,6 +50,7 @@ export default({ config, db }) => {
             }
             task.name = req.body.name;
             task.priority = req.body.priority;
+            task.date = req.body.date;
             task.save(err => {
                 if (err) {
                     res.send(err);
