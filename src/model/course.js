@@ -3,7 +3,7 @@ import Grade from './grade';
 
 let Schema = mongoose.Schema;
 let CourseSchema = new Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
@@ -15,7 +15,7 @@ let CourseSchema = new Schema({
         type: String,
         required: true
     },
-    average: Number,
+    grade: Number,
     grades: [{ type: Schema.Types.ObjectId, ref: 'Grade' }],
     tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 });

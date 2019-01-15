@@ -7,7 +7,7 @@ let GradeSchema = new Schema({
         type: String,
         required: true
     },
-    mark: {
+    grade: {
         type: Number,
         required: true
     },

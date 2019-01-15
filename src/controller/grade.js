@@ -6,7 +6,9 @@ import Grade from '../model/grade';
 export default({ config, db }) => {
     let api = Router();
 
-    // '/v1/grade/add' - CREATE grade.
+    /// '/v1/grade/add/:id'
+    /// CREATE operation to create a new grade for
+    /// a particular course with an unique id
     api.post('/add/:id', (req, res) => {
         Course.findById(req.params.id, (err, course) => {
             if (err) {
@@ -14,7 +16,7 @@ export default({ config, db }) => {
             }
             let newGrade = new Grade();
             newGrade.name = req.body.name;
-            newGrade.mark = req.body.mark;
+            newGrade.grade = req.body.grade;
             newGrade.weight = req.body.weight;
             newGrade.course = course._id;
             newGrade.save((err, grade) => {
@@ -32,7 +34,9 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/grade/:id' - READ grades for a course.
+    /// '/v1/grade/:id'
+    /// GET operation to read all grades for a 
+    /// particular course with an unique id
     api.get('/:id', (req, res) => {
         Grade.find({ course: req.params.id }, (err, grades) => {
             if (err) {
@@ -42,14 +46,16 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/grade/update/:id' - UPDATE a course.
+    /// '/v1/grade/update/:id'
+    /// UPDATE operation to update grade parameters
+    /// for a particular course with an unique id
     api.put('/update/:id', (req, res) => {
         Grade.findById(req.params.id, (err, grade) => {
             if (err) {
                 res.send(err);
             }
             grade.name = req.body.name;
-            grade.mark = req.body.mark;
+            grade.grade = req.body.grade;
             grade.weight = req.body.weight;
             grade.save(err => {
                 if (err) {
@@ -60,7 +66,9 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/grade/delete/:id' - DELETE a grade.
+    /// '/v1/grade/delete/:id'
+    /// DELETE operation to delete a grade from
+    /// a particular course with an unique id
     api.delete('/delete/:id', (req, res) => {
         Grade.findByIdAndRemove(req.params.id, (err, grade) => {
             let response = {

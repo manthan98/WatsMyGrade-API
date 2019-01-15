@@ -6,7 +6,9 @@ import Task from '../model/task';
 export default({ config, db }) => {
     let api = Router();
 
-    // '/v1/task/add/:id' - CREATE task.
+    /// '/v1/task/add/:id'
+    /// CREATE operation to create a new task for
+    /// a particular course with an unique id
     api.post('/add/:id', (req, res) => {
         Course.findById(req.params.id, (err, course) => {
             if (err) {
@@ -32,7 +34,9 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/task/:id' - GET tasks.
+    /// '/v1/task/:id'
+    /// GET operation to read all tasks for a 
+    /// particular course with an unique id
     api.get('/:id', (req, res) => {
         Task.find({ course: req.params.id }, (err, tasks) => {
             if (err) {
@@ -42,7 +46,9 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/task/update/:id' - UPDATE a task.
+    /// '/v1/task/update/:id'
+    /// UPDATE operation to update task parameters
+    /// for a particular course with an unique id
     api.put('/update/:id', (req, res) => {
         Task.findById(req.params.id, (err, task) => {
             if (err) {
@@ -60,7 +66,9 @@ export default({ config, db }) => {
         });
     });
 
-    // '/v1/task/delete/:id'
+    /// '/v1/task/delete/:id'
+    /// DELETE operation to delete a grade from
+    /// a particular course with an unique id
     api.delete('/delete/:id', (req, res) => {
         Task.findByIdAndRemove(req.params.id, (err, task) => {
             let response = {
